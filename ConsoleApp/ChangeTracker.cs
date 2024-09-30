@@ -11,9 +11,9 @@ namespace ConsoleApp
 {
     internal static class ChangeTracker
     {
-        public static void Run(DbContextOptions options)
+        public static void Run(DbContextOptionsBuilder config)
         {
-            using var context = new Context(options);
+            using var context = new Context(config.Options);
 
             //AutoDetectChangesEnabled dziala w przypadku wywołania SaveChanges, Local, Entry
             context.ChangeTracker.AutoDetectChangesEnabled = true;
@@ -21,7 +21,7 @@ namespace ConsoleApp
             Order order = new Order() { DateTime = DateTime.Now, Name = "Zamówienie #124" };
             Product product = new Product() { Name = "Marchewka", Price = 4.23f };
             order.Products.Add(product);
-            
+
             Console.WriteLine("Order przed dodaniem do kontekstu: " + context.Entry(order).State);
             Console.WriteLine("Product przed dodaniem do kontekstu: " + context.Entry(product).State);
 
@@ -71,7 +71,7 @@ namespace ConsoleApp
             order.Products.Remove(order.Products.First());
             order.Name = "alamakota";
 
-           context.Entry(order).Property(x => x.Name).IsModified = false;
+            context.Entry(order).Property(x => x.Name).IsModified = false;
 
             context.Entry(order).State = EntityState.Unchanged;
 
@@ -110,5 +110,30 @@ namespace ConsoleApp
             Console.WriteLine(context.ChangeTracker.DebugView.LongView);
 
         }
+
+        public static void TrackingProxies(DbContextOptionsBuilder config)
+        {
+            //Włączenie śledzenia zmian na podstawie proxy - wymaga specjalnego tworzenia obiektów (context.CreateProxy) i virtualizacji właściwości encji
+            config.UseChangeTrackingProxies();
+
+            using var context = new Context(config.Options);
+
+            context.ChangeTracker.AutoDetectChangesEnabled = false;
+
+            //var order = new Order();
+            var order = context.CreateProxy<Order>();
+            order.Name = "alamakota";
+            var product = context.CreateProxy<Product>(x => { x.Price = 1; x.Name = "pomarańcza"; });
+            order.Products.Add(product);
+
+            context.Add(order);
+
+            context.SaveChanges();
+
+            order.Name = "kotmaale";
+
+            Console.WriteLine(context.ChangeTracker.DebugView.LongView);
+        }
+
     }
 }
