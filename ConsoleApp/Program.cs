@@ -1,4 +1,5 @@
-﻿using DAL;
+﻿using ConsoleApp;
+using DAL;
 using Microsoft.EntityFrameworkCore;
 
 var config = new DbContextOptionsBuilder<Context>()
@@ -11,3 +12,5 @@ using ( var context = new Context(config))
     context.Database.EnsureDeleted();
     context.Database.EnsureCreated();
 }
+
+ChangeTracker.Run(config);
