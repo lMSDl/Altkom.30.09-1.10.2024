@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
@@ -16,6 +17,9 @@ namespace Models
                 OnPropertyChanged();
             }
         }
+
+        //odpowiednik IsConcurrencyToken w konfiguracji
+        //[ConcurrencyCheck]
         public DateTime DateTime
         {
             get => dateTime;

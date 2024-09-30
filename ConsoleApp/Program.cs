@@ -16,4 +16,6 @@ using ( var context = new Context(config.Options))
 
 //ChangeTracker.Run(config);
 //ChangeTracker.TrackingProxies(config);
-ChangeTracker.ChangedNotfication(config);
+//ChangeTracker.ChangedNotfication(config);
+
+ConcurrencyCheck.Run(config);
