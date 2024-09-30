@@ -1,6 +1,8 @@
 ﻿using ConsoleApp;
 using DAL;
 using Microsoft.EntityFrameworkCore;
+using Models;
+using System.Diagnostics;
 
 var config = new DbContextOptionsBuilder<Context>()
     .UseSqlServer(@"Server=(local);Database=EFCore;Integrated security=true;TrustServerCertificate=true");
@@ -13,4 +15,5 @@ using ( var context = new Context(config.Options))
 }
 
 //ChangeTracker.Run(config);
-ChangeTracker.TrackingProxies(config);
+//ChangeTracker.TrackingProxies(config);
+ChangeTracker.ChangedNotfication(config);

@@ -4,8 +4,27 @@ namespace Models
 {
     public class Order : Entity
     {
-        public virtual string? Name { get; set; }
-        public virtual DateTime DateTime { get; set; }
-        public virtual ICollection<Product> Products { get; set; } = new ObservableCollection<Product>();
+        private string? name;
+        private DateTime dateTime;
+
+        public string? Name
+        {
+            get => name;
+            set
+            {
+                name = value;
+                OnPropertyChanged();
+            }
+        }
+        public DateTime DateTime
+        {
+            get => dateTime;
+            set
+            {
+                dateTime = value;
+                OnPropertyChanged();
+            }
+        }
+        public ICollection<Product> Products { get; set; } = new ObservableCollection<Product>();
     }
 }
