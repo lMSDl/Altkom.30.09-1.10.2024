@@ -22,4 +22,6 @@ using ( var context = new Context(config.Options))
 
 //ShadowProperty.Run(config);
 
-QueryFilters.Run(config);
+//QueryFilters.Run(config);
+
+Transactions.Run(config);
