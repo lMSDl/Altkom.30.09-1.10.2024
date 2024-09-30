@@ -6,10 +6,13 @@ namespace Models
     {
         public string? Name { get; set; }
         public float Price { get; set; }
+
+
+        //public int? OrderId { get; set; }
         public Order? Order { get; set; }
 
         //odpowiednik IsRowVersion w konfiguracji
         //[Timestamp]
-        public byte[] Timestamp { get; }
+        //public byte[] Timestamp { get; }
     }
 }
