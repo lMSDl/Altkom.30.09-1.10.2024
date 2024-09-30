@@ -20,4 +20,6 @@ using ( var context = new Context(config.Options))
 
 //ConcurrencyCheck.Run(config);
 
-ShadowProperty.Run(config);
+//ShadowProperty.Run(config);
+
+QueryFilters.Run(config);
