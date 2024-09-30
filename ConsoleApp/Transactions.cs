@@ -12,13 +12,13 @@ namespace ConsoleApp
 {
     internal static class Transactions
     {
-        public static void Run(DbContextOptionsBuilder config)
+        public static void Run(DbContextOptionsBuilder config, bool randomFail = true)
         {
             var products = Enumerable.Range(100, 50).Select(x => new Product { Name = $"Produkt {x}", Price = 1.23f * x }).ToList();
             var orders = Enumerable.Range(1, 5).Select(x => new Order { Name = $"Order {x}", DateTime = DateTime.Now.AddMinutes(-3.21 * x) }).ToList();
 
             using var context = new Context(config.Options);
-            context.RandomFail = true;
+            context.RandomFail = randomFail;
 
             using (var transaction = context.Database.BeginTransaction(System.Data.IsolationLevel.ReadCommitted))
             {
