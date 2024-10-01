@@ -20,6 +20,12 @@ namespace DAL.Configurations
             }));
 
             builder.Property(x => x.Description).IsSparse();
+
+            builder.OwnsOne(x => x.Address, navigationBuilder =>
+            {
+                navigationBuilder.ToJson();
+                navigationBuilder.OwnsOne(x => x.Coordinates);
+            });
         }
     }
 }
