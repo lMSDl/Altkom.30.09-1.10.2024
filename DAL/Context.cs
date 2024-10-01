@@ -19,7 +19,7 @@ namespace DAL
 
             if(!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer();
+                optionsBuilder.UseSqlServer(x => x.UseNetTopologySuite());
             }
         }
 

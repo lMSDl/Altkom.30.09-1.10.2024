@@ -21,7 +21,9 @@ namespace ConsoleApp
                 Details = new ProductDetails { Height = x, Width = 2 * x, Weight = 3 * x }
             }).ToList();
             var orders = Enumerable.Range(1, 5).Select(x => new Order { Name = $"Order {x}", DateTime = DateTime.Now.AddMinutes(-3.21 * x),
-            OrderType = (OrderTypes)(x % 3), Parameters = (Parameters) (x % 16)}).ToList();
+            OrderType = (OrderTypes)(x % 3), Parameters = (Parameters) (x % 16),
+            DeliveryPoint = new NetTopologySuite.Geometries.Point(51 + 0.1 * x, 19 - 0.1 * x) { SRID = 4326 }
+            }).ToList();
 
             using var context = new Context(config.Options);
             context.RandomFail = randomFail;
