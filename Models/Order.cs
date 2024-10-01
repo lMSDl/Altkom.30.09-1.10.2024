@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
@@ -30,5 +29,8 @@ namespace Models
             }
         }
         public /*virtual*/ ICollection<Product> Products { get; set; } = new ObservableCollection<Product>();
+
+        //public string? Description => $"{DateTime.ToShortDateString()}: {Name}";
+        public string? Description { get; }
     }
 }

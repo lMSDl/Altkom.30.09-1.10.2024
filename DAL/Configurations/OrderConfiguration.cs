@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Configurations
 {
@@ -15,6 +10,12 @@ namespace DAL.Configurations
         {
             base.Configure(builder);
             builder.Property(x => x.DateTime).IsConcurrencyToken();
+
+            //builder.Property(x => x.Description).HasComputedColumnSql("Cast([DateTime] as varchar(250)) + ': ' + [Name]");
+            builder.Property(x => x.Description).HasComputedColumnSql("[Name] + ' alamakota'", stored: true);
+
+            builder.Property<DateTime>("Timer").HasComputedColumnSql("getdate()");
+
         }
     }
 }
