@@ -15,6 +15,8 @@ namespace DAL.Configurations
         {
             base.Configure(builder);
 
+            builder.ToTable("OrderProducts");
+
             builder.HasOne(x => x.Order).WithMany(x => x.Products);//.IsRequired();
 
             builder
