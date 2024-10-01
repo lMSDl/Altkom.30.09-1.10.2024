@@ -32,4 +32,6 @@ using ( var context = new Context(config.Options))
 
 //CompileQuery.Run(config);
 
-StoredProcedures.Run(config);
+//StoredProcedures.Run(config);
+
+Views.Run(config);
