@@ -28,4 +28,6 @@ using ( var context = new Context(config.Options))
 
 //RelatedData.Run(config);
 
-TemporalTable.Run(config);
+//TemporalTable.Run(config);
+
+CompileQuery.Run(config);

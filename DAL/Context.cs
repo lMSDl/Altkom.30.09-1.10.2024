@@ -11,6 +11,19 @@ namespace DAL
         public Context(DbContextOptions options) : base(options) { }
 
 
+        public static Func<Context, int, Product> GetProductsByDateOffset { get; } =
+            EF.CompileQuery((Context context, int addSeconds) =>
+                context.Set<Product>()
+                    .Include(x => x.Order)
+                    .ThenInclude(x => x.Products)
+                    .Where(x => x.Id % 2 == 0)
+                    .Where(x => x.Order.Id % 2 != 0)
+                    .Where(x => x.Order.DateTime < DateTime.Now.AddSeconds(addSeconds))
+                    .OrderByDescending(x => x.Order.DateTime)
+                    .First()
+            );
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
