@@ -9,7 +9,7 @@ namespace DAL.Configurations
         public override void Configure(EntityTypeBuilder<Order> builder)
         {
             base.Configure(builder);
-            builder.Property(x => x.DateTime).IsConcurrencyToken();
+            builder.Property(x => x.DateTime).HasField("orderDate").IsConcurrencyToken();
 
             //builder.Property(x => x.Description).HasComputedColumnSql("Cast([DateTime] as varchar(250)) + ': ' + [Name]");
             builder.Property(x => x.Description).HasComputedColumnSql("[Name] + ' alamakota'", stored: true);

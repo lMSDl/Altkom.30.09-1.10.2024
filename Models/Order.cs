@@ -5,7 +5,9 @@ namespace Models
     public class Order : Entity
     {
         private string? name;
-        private DateTime dateTime;
+        //private string? _name;
+        //private string? m_name;
+        private DateTime orderDate;
 
         public string? Name
         {
@@ -21,10 +23,10 @@ namespace Models
         //[ConcurrencyCheck]
         public DateTime DateTime
         {
-            get => dateTime;
+            get => orderDate;
             set
             {
-                dateTime = value;
+                orderDate = value;
                 OnPropertyChanged();
             }
         }
