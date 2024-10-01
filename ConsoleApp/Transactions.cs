@@ -14,7 +14,12 @@ namespace ConsoleApp
     {
         public static void Run(DbContextOptionsBuilder config, bool randomFail = true)
         {
-            var products = Enumerable.Range(100, 50).Select(x => new Product { Name = $"Produkt {x}", Price = 1.23f * x }).ToList();
+            var products = Enumerable.Range(100, 50).Select(x => new Product
+            {
+                Name = $"Produkt {x}",
+                Price = 1.23f * x,
+                Details = new ProductDetails { Height = x, Width = 2 * x, Weight = 3 * x }
+            }).ToList();
             var orders = Enumerable.Range(1, 5).Select(x => new Order { Name = $"Order {x}", DateTime = DateTime.Now.AddMinutes(-3.21 * x),
             OrderType = (OrderTypes)(x % 3), Parameters = (Parameters) (x % 16)}).ToList();
 

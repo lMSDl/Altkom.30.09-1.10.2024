@@ -43,5 +43,8 @@ namespace Models
         //odpowiednik IsRowVersion w konfiguracji
         //[Timestamp]
         //public byte[] Timestamp { get; }
+
+        public ProductDetails? Details { get; set; }
+
     }
 }

@@ -23,6 +23,8 @@ namespace DAL.Configurations
                 //.Property(x => x.Timestamp)
                 .Property<byte[]>("Timestamp")
                 .IsRowVersion();
+
+            builder.HasOne(x => x.Details).WithOne().HasForeignKey<ProductDetails>(x => x.Id);
         }
     }
 }

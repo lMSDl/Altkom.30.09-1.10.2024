@@ -24,7 +24,7 @@ namespace ConsoleApp
                 //EagerLoading
 
                 //var product = context.Set<Product>().Include(x => x.Order).ThenInclude(x => x.Products).First();
-                var product = context.Set<Product>().AsSplitQuery().Include(x => x.Order).ThenInclude(x => x.Products).First();
+                var product = context.Set<Product>().AsSplitQuery().Include(x => x.Details).Include(x => x.Order).ThenInclude(x => x.Products).First();
             }
 
             using (var context = new Context(config.Options))
