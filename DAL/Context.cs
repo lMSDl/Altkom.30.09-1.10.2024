@@ -10,7 +10,18 @@ namespace DAL
     public class Context : DbContext
     {
         public Context(DbContextOptions options) : base(options) { }
+        
+        public Context() { }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            if(!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer();
+            }
+        }
 
         public static Func<Context, int, Product> GetProductsByDateOffset { get; } =
             EF.CompileQuery((Context context, int addSeconds) =>
