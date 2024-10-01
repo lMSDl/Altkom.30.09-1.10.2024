@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Models;
 
 namespace DAL.Configurations
@@ -16,6 +17,12 @@ namespace DAL.Configurations
 
             builder.Property<DateTime>("Timer").HasComputedColumnSql("getdate()");
 
+            /*builder.Property(x => x.OrderType).HasConversion(
+                x => x.ToString(),
+                x => Enum.Parse<OrderTypes>(x));*/
+            //builder.Property(x => x.OrderType).HasConversion(new EnumToStringConverter<OrderTypes>());
+            builder.Property(x => x.OrderType).HasConversion<string>();
+            builder.Property(x => x.Parameters).HasConversion<string>();
         }
     }
 }

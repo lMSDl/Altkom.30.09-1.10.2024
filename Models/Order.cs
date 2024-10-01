@@ -34,5 +34,8 @@ namespace Models
 
         //public string? Description => $"{DateTime.ToShortDateString()}: {Name}";
         public string? Description { get; }
+
+        public OrderTypes OrderType { get; set; }
+        public Parameters Parameters { get; set; }
     }
 }

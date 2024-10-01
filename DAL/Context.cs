@@ -1,4 +1,5 @@
 ﻿using DAL.Conventions;
+using DAL.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
@@ -44,6 +45,22 @@ namespace DAL
                     x.IsNullable = false;
                     ((IMutableEntityType)x.DeclaringType).SetPrimaryKey(x);
                 });
+
+            modelBuilder.Model.GetEntityTypes()
+                .SelectMany(x => x.GetProperties())
+                .Where(x => x.ClrType == typeof(string))
+                .Where(x => x.PropertyInfo?.CanWrite ?? false)
+                .ToList()
+                .ForEach(x => x.SetValueConverter(new ObfustacionConverter()));
+
+
+            /*modelBuilder.Model.GetEntityTypes()
+                .SelectMany(x => x.GetProperties())
+                .Where(x => x.ClrType == typeof(string))
+                .Where(x => x.PropertyInfo?.CanWrite ?? false)
+                .Where(x => x.GetMaxLength() is not null)
+                .ToList()
+                .ForEach(x => x.SetValueConverter(new TurncateConverter(x.GetMaxLength()!.Value)));*/
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
@@ -53,7 +70,8 @@ namespace DAL
             //configurationBuilder.Properties<DateTime>().HavePrecision(5);
             configurationBuilder.Conventions.Add(_ => new DateTimeConvention());
             configurationBuilder.Conventions.Add(_ => new PluralizeTableNameConvention());
-
+            
+            //configurationBuilder.Properties<string>().HaveMaxLength(5);
 
             //configurationBuilder.Conventions.Remove(typeof(KeyDiscoveryConvention));
         }
