@@ -18,6 +18,8 @@ namespace DAL.Configurations
                 xx.HasPeriodEnd("From"); //domyślnie: "PeriodEnd"
                 xx.HasPeriodStart("To"); //domyślnie: "PeriodStart"
             }));
+
+            builder.Property(x => x.Description).IsSparse();
         }
     }
 }
